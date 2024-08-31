@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { HomeComponent } from './home';
-import { LoginComponent } from './login';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
+import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
+import { AppComponent } from './app.component';
 
 @NgModule({
   imports: [

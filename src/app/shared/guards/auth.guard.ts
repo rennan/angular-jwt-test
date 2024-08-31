@@ -5,8 +5,8 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
-import { AuthenticationService } from '@app/_services';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
