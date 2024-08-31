@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { User } from './shared/models/user.model';
 import { AuthenticationService } from './shared/services/authentication.service';
-import { PrimeNGConfig } from 'primeng/api';
+import { MenuItem, PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -9,19 +9,63 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
   user?: User | null;
+  menuItems: MenuItem[] = [];
 
   constructor(
     private readonly primengConfig: PrimeNGConfig,
     private readonly authenticationService: AuthenticationService
   ) {
-    this.authenticationService.user.subscribe((x) => (this.user = x));
+    this.authenticationService.user.subscribe(
+      (userData) => (this.user = userData)
+    );
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.primengConfig.ripple = true;
+    this.getMenuItems();
   }
 
-  logout() {
+  private getMenuItems(): void {
+    this.menuItems = [
+      {
+        label: 'Users',
+        icon: 'pi pi-fw pi-user',
+        items: [
+          {
+            label: 'New',
+            icon: 'pi pi-fw pi-user-plus',
+          },
+          {
+            label: 'Search',
+            icon: 'pi pi-fw pi-users',
+            items: [
+              {
+                label: 'Filter',
+                icon: 'pi pi-fw pi-filter',
+                items: [
+                  {
+                    label: 'Print',
+                    icon: 'pi pi-fw pi-print',
+                  },
+                ],
+              },
+              {
+                icon: 'pi pi-fw pi-bars',
+                label: 'List',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Logout',
+        icon: 'pi pi-fw pi-power-off',
+        command: () => this.logout(),
+      },
+    ];
+  }
+
+  private logout(): void {
     this.authenticationService.logout();
   }
 }
