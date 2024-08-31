@@ -6,7 +6,7 @@
   <div class="card">
     <h4 class="card-header py-3">Angular JWT Login Example</h4>
     <div class="card-body">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="loginForm">
         <div class="mb-3">
           <label class="form-label">Username</label>
           <input
@@ -31,13 +31,7 @@
             <div *ngIf="f.password.errors.required">Password is required</div>
           </div>
         </div>
-        <button [disabled]="loading" class="btn btn-primary">
-          <span
-            *ngIf="loading"
-            class="spinner-border spinner-border-sm mr-1"
-          ></span>
-          Login
-        </button>
+        <p-button label="Login" [disabled]="loading" (onClick)="onSubmit()"></p-button>
         <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
           {{ error }}
         </div>
