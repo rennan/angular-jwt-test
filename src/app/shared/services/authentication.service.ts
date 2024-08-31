@@ -13,9 +13,7 @@ export class AuthenticationService {
   public user: Observable<User | null>;
 
   constructor(private router: Router, private http: HttpClient) {
-    this.userSubject = new BehaviorSubject(
-      JSON.parse(localStorage.getItem('user')!)
-    );
+    this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
     this.user = this.userSubject.asObservable();
   }
 
@@ -25,7 +23,7 @@ export class AuthenticationService {
 
   login(username: string, password: string) {
     return this.http
-      .post<any>(`${environment.apiUrl}/users/authenticate`, {
+      .post(`${environment.apiUrl}/users/authenticate`, {
         username,
         password,
       })
