@@ -1,11 +1,12 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { User } from './shared/models/user.model';
 import { AuthenticationService } from './shared/services/authentication.service';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
+  providers: [MessageService],
 })
 export class AppComponent implements OnInit {
   user?: User | null;
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly primengConfig: PrimeNGConfig,
-    private readonly authenticationService: AuthenticationService
+    private readonly authenticationService: AuthenticationService,
+    private readonly messageService: MessageService
   ) {
     this.authenticationService.user.subscribe(
       (userData) => (this.user = userData)
@@ -67,5 +69,10 @@ export class AppComponent implements OnInit {
 
   private logout(): void {
     this.authenticationService.logout();
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success!',
+      detail: 'User logged out successfully.',
+    });
   }
 }

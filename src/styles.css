@@ -11,8 +11,11 @@ html, body {
 }
 
 body {
+  -webkit-font-smoothing: antialiased;
+  scrollbar-width: thin;
   font-family: "Inter", system-ui;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  height: 100vh;
 }

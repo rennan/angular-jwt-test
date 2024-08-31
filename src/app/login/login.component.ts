@@ -3,22 +3,24 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../shared/services/authentication.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   templateUrl: 'login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers: [MessageService],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loading = false;
   submitted = false;
-  error = '';
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly authenticationService: AuthenticationService
+    private readonly authenticationService: AuthenticationService,
+    private readonly messageService: MessageService
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.userValue) {
@@ -46,7 +48,6 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.error = '';
     this.loading = true;
     this.authenticationService
       .login(this.f.username.value, this.f.password.value)
@@ -58,8 +59,12 @@ export class LoginComponent implements OnInit {
           this.router.navigate([returnUrl]);
         },
         error: (error) => {
-          this.error = error;
           this.loading = false;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error!',
+            detail: error,
+          });
         },
       });
   }

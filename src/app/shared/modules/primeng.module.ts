@@ -4,6 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
 import { TableModule } from 'primeng/table';
 import { AvatarModule } from 'primeng/avatar';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   exports: [
@@ -12,6 +13,7 @@ import { AvatarModule } from 'primeng/avatar';
     InputTextModule,
     MenubarModule,
     TableModule,
+    ToastModule,
   ],
 })
 export class PrimeNgModule {}
